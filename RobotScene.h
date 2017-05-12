@@ -68,7 +68,7 @@ public:
 	RobotScene();
 	
     const char* getName() const override {
-        return "UNIVERSITY OF PATRAS - VVR GROUP - COMPUTATIONAL GEOMETRY LAB";
+        return " COMPUTATIONAL GEOMETRY AND ROBOT MOTION PLANNING";
     }
 
 protected:
