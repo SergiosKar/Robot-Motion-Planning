@@ -121,15 +121,16 @@ void RobotScene::keyEvent(unsigned char key, bool up, int modif)
 	}
 			
 	case('v') : {
-					if (robottype == 0);
-						//pathViaVisibility(robot1.GetCentre(),)
-					else if (robottype == 1);
-						//VisibilityGraph(robot2.GetMidPoint(), VisibilityLines, cspace_obsts);
-					else if (robottype == 2);
-						//pathViaVisibility(robot3.GetCentroid(), C2DPoint(-50, -300), cspace_obsts, m_canvas);
-					
-					robot2.RotateToRight(90, robot2.GetMidPoint());
-					m_path=path3DOF(robot2.GetMidPoint(), C2DPoint(-300, -300),  cspace_obsts);
+		
+		if (robottype == 0);
+			//pathViaVisibility(robot1.GetCentre(),)
+		else if (robottype == 1);
+			//VisibilityGraph(robot2.GetMidPoint(), VisibilityLines, cspace_obsts);
+		else if (robottype == 2);
+			//pathViaVisibility(robot3.GetCentroid(), C2DPoint(-50, -300), cspace_obsts, m_canvas);
+
+		robot2.RotateToRight(90, robot2.GetMidPoint());
+		m_path=path3DOF(robot2.GetMidPoint(), C2DPoint(-300, -300),  cspace_obsts);
 
 					
 	}
@@ -987,12 +988,7 @@ void FindAllAdjacent(std::vector<Tri> &tris, Tri triangle, int index, vvr::Canva
 
 C2DCircle GetCircumCircle(const C2DTriangle &t)
 {
-	//!//////////////////////////////////////////////////////////////////////////////////
-	//! TASK:
-	//!
-	//!  - Kataskeyaste ton kyklo pou "pernaei" apo tis 3 koryfes tou trigwnou.
-	//!
-	//!//////////////////////////////////////////////////////////////////////////////////
+	
 
 	C2DCircle circle;
 	circle.SetCircumscribed(
@@ -1005,16 +1001,7 @@ C2DCircle GetCircumCircle(const C2DTriangle &t)
 
 bool IsDelaunay(const C2DTriangle &t, const C2DPointSet &pset)
 {
-	//!//////////////////////////////////////////////////////////////////////////////////
-	//! TASK:
-	//!
-	//!  - Check if this triangle is a Delaunay triangle.
-	//!
-	//! HINTS:
-	//!
-	//!  - Shrink the circle a bit in order to exclude points of its circumference.
-	//!
-	//!//////////////////////////////////////////////////////////////////////////////////
+	
 
 	for (int i = 0; i < pset.size(); i++) {
 		C2DCircle c = GetCircumCircle(t);
@@ -1029,17 +1016,7 @@ bool IsDelaunay(const C2DTriangle &t, const C2DPointSet &pset)
 
 void FindViolations(vector<Tri> &tris, const C2DPointSet &ptset, vector<unsigned> &violations)
 {
-	//!//////////////////////////////////////////////////////////////////////////////////
-	//! TASK:
-	//!
-	//!  - Check in `tris` for Delaunay violations.
-	//!
-	//! HINTS:
-	//!
-	//!  - If triangle i causes violation add it to violations vector like this:
-	//!      violations.push_back(i);
-	//!
-	//!//////////////////////////////////////////////////////////////////////////////////
+	
 
 	violations.clear();
 
@@ -1064,12 +1041,7 @@ void ShowViolations(vector<Tri> &tris, const vector<unsigned> &violations, Canva
 
 bool FindAdjacentTriangle(vector<Tri> &tris, C2DPoint *p1, C2DPoint *p2, unsigned *tri_adj_index, C2DPoint **opp_ver)
 {
-	//!//////////////////////////////////////////////////////////////////////////////////
-	//! TASK:
-	//!
-	//!  - Vreite ena trigwno pou exei koini plevra me ton
-	//!
-	//!//////////////////////////////////////////////////////////////////////////////////
+	
 
 	for (int i = 0; i < tris.size(); i++)
 	{
@@ -1451,88 +1423,11 @@ std::vector<C2DLine> RobotScene::path3DOF(C2DPoint start, C2DPoint end, std::vec
 	std::vector<C2DLine> path;
 
 
-	/*
-	if (robottype == 0)
-		MinkowskiSumCircle(robot1, obstpolygons, cs_obsts);
-	else if (robottype == 1)
-		MinkowskiSumLine(robot2, obstpolygons, cs_obsts, m_canvas);
-	else if (robottype == 2)
-		MinkowskiSumRect(robot3, obstpolygons, cs_obsts, m_canvas);
 	
-	if (robottype == 0)
-		pathViaVisibility(start, end, cs_obsts, m_canvas);
-	if (robottype == 1)
-		pathViaVisibility(start, end, cs_obsts, m_canvas);
-	if (robottype == 2)
-		pathViaVisibility(start, end, cs_obsts, m_canvas);
-
-
-		
-		*/
-
-
-
-	////////////check all rotations angles an uparxei lush komple
-	
-	/*
-	for (int i = 0; i < 360; i++){
-
-		MinkowskiSumLine(robot2, obstpolygons, cs_obsts, m_canvas);
-		cur_path = pathViaVisibility(start, end, cs_obsts, m_canvas, bound);
-		if (cur_path.back().GetPointTo() == end){
-			for (int i = 0; i < cur_path.size(); i++)
-				path.push_back(cur_path[i]);
-			return path;
-		}
-		else{
-			robot2.RotateToRight(90, robot2.GetMidPoint());
-			cs_obsts.clear();
-		}
-		
-	
-	}*/
 	MinkowskiSumLine(robot2, obstpolygons, cs_obsts, m_canvas);
 	return path;
 
-	/*
-	///find point in next c-space:closest
-	C2DCircle cir;
-	bool stflag = false;
-		
-	for (int i = 0; i < 10000; i=i+10){
-		cir = C2DCircle(cur_path.back().GetPointTo(), i);
-			
-		for (int k = 0; k < cs_obsts.size(); k++){
-			for (int n = 0; n < cs_obsts[k].GetPointsCount(); n++)
-			{
-				if (cir.Contains(*cs_obsts[k].GetPoint(n))){
-					start = C2DPoint(*cs_obsts[k].GetPoint(n));
-					stflag = true;
-					break;
-
-				}
-					
-			}
-			if (stflag == true)
-				break;
-
-		}
-		if (stflag == true)
-			break;
-	}
-	////////////////
-		
-	m_canvas.add(start, Colour::black);
-		
-		
-
-	cur_path=pathViaVisibility(start, end, cs_obsts, m_canvas, bound);
-		
-	for(int i = 0; i < cur_path.size(); i++)
-		m_path.push_back(cur_path[i]);
-	cur_path.clear();
-		
-*/
+	
 
 
 }
@@ -1571,73 +1466,6 @@ C2DPolygon Polygon_Union(C2DPolygon p1, C2DPolygon p2){
 
 
 }
-/*
-Graph::Graph(int V)
-{
-	this->V = V;
-	adj = new list<int>[V];
-}
-
-void Graph::addEdge(int u, int v)
-{
-	adj[u].push_back(v); // Add v to u’s list.
-}
-
-// Prints all paths from 's' to 'd'
-void Graph::printAllPaths(int s, int d)
-{
-	// Mark all the vertices as not visited
-	bool *visited = new bool[V];
-
-	// Create an array to store paths
-	int *path = new int[V];
-	int path_index = 0; // Initialize path[] as empty
-
-	// Initialize all vertices as not visited
-	for (int i = 0; i < V; i++)
-		visited[i] = false;
-
-	// Call the recursive helper function to print all paths
-	printAllPathsUtil(s, d, visited, path, path_index);
-}
-
-// A recursive function to print all paths from 'u' to 'd'.
-// visited[] keeps track of vertices in current path.
-// path[] stores actual vertices and path_index is current
-// index in path[]
-void Graph::printAllPathsUtil(int u, int d, bool visited[],
-	int path[], int &path_index)
-{
-	// Mark the current node and store it in path[]
-	visited[u] = true;
-	path[path_index] = u;
-	path_index++;
-
-	// If current vertex is same as destination, then print
-	// current path[]
-	if (u == d)
-	{
-		for (int i = 0; i < path_index; i++){
-			cout << path[i] << " ";
-			m_path.push_back(path[i]);
-		}
-
-		cout << endl;
-	}
-	else // If current vertex is not destination
-	{
-		// Recur for all the vertices adjacent to current vertex
-		list<int>::iterator i;
-		for (i = adj[u].begin(); i != adj[u].end(); ++i)
-		if (!visited[*i])
-			printAllPathsUtil(*i, d, visited, path, path_index);
-	}
-
-	// Remove current vertex from path[] and mark it as unvisited
-	path_index--;
-	visited[u] = false;
-}
-*/
 
 
 
