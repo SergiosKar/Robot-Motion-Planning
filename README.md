@@ -74,28 +74,6 @@ but we rotate the robot and
 repeat until there is a valid move. From the new position ,we repeat the process
 until we reach the target point.
 
-Notes
 
--   The coordinates of the obstacles as well as the position / orientation of
-    the robot are loaded from a txt file (coordinates.txt). The txt has the
-    following format:
 
-    -   Robot type (0 for circular, 1 for rod-shaped one-dimensional, 2 for
-        2-dimensional)
-
-    -   Several obstacles
-
-    -   Number of 1st obstacle peaks
-
-    -   1st Obstacle Peak Coordinates
-
-    -   Number of 2nd obstacle peaks
-
-    -   2nd obstacle coordinates
-
-    -   Etc
-
--   To use the library, use the following shortcuts
-
-![](media/42ece7ba1698b653f8d7a6314e9c6dbc.png)
 
