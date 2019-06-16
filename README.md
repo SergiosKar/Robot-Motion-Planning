@@ -1,9 +1,10 @@
-
-a)
+# Robot motion planning
 
 We developed a path planner for a circular robot( 2degrees of freedom). To
 achieve this, we initially found the Minkowski sum of both the robot and the
 obstacles, designing the configuration space C.
+
+## Modeling the environment
 
 To calculate the Minkowski sum, we move the robot to the point with coordinates
 (0,0), invert it and then add the coordinates of all obstacles’ corners with
@@ -26,9 +27,9 @@ intersect the obstacles
 
 ![](media/50855b75ab6f1d4a175d6c4a17ce4865.jpg)
 
-b)
+## 3 degrees of freedom Robot
 
-In the next strep, where we use a robot with three degrees of freedom, there are
+In the next step, where we use a robot with three degrees of freedom, there are
 not many
 
 important changes in calculating Minkowski sums. Once again, we add all the
@@ -40,7 +41,9 @@ the Voronoi diagram.
 
 ![](media/5cbd8a2e3615e3a840d0c5061f4f1a03.jpg)
 
-γ) In order to find the optimum path to move the robot from one point to
+## Find optimal path
+
+In order to find the optimum path to move the robot from one point to
 another, we use the Visibility graph method. However, because finding the entire
 graph has big time and memory complexity, we use a variation by finding all the
 visible tops from one point. More analytically in the case of the robot with 2
